@@ -1,0 +1,29 @@
+
+body{
+    background:#f8f9fa;
+}
+
+.card{
+    border-radius:15px;
+}
+
+button{
+    margin-right:5px;
+}
+
+h1{
+    font-weight:bold;
+}
+
+table{
+    text-align:center;
+}
+
+th{
+    text-align:center;
+}
+
+td{
+    vertical-align:middle;
+}
+
