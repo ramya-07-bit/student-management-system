@@ -1,16 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Student Management System</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,220 +21,284 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body class="bg-light">
 
-<div class="container mt-4">
+<div class="d-flex">
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- Sidebar -->
+    <div class="bg-dark text-white p-3 shadow" style="width:260px; min-height:100vh;">
 
-        <h1 class="text-primary">
-            🎓 Student Management System
-        </h1>
-
-        <div>
-
-            <button
-                class="btn btn-success me-2"
-                onclick="exportPDF()">
-
-                Export PDF
-
-            </button>
-
-            <button
-                class="btn btn-danger"
-                onclick="logout()">
-
-                Logout
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- Dashboard Cards -->
-    <div class="row mb-4">
-
-        <div class="col-md-4">
-
-            <div class="card bg-primary text-white shadow">
-
-                <div class="card-body text-center">
-
-                    <h5>Total Students</h5>
-
-                    <h2 id="totalStudents">0</h2>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="card bg-success text-white shadow">
-
-                <div class="card-body text-center">
-
-                    <h5>Departments</h5>
-
-                    <h2 id="totalDepartments">0</h2>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="card bg-warning shadow">
-
-                <div class="card-body text-center">
-
-                    <h5>Average Semester</h5>
-
-                    <h2 id="averageSemester">0</h2>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Charts -->
-    <div class="row mb-4">
-
-        <div class="col-md-6">
-
-            <div class="card shadow p-3">
-
-                <h5 class="text-center">
-
-                    Students by Department
-
-                </h5>
-
-                <canvas id="departmentChart"></canvas>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-
-            <div class="card shadow p-3">
-
-                <h5 class="text-center">
-
-                    Students by Semester
-
-                </h5>
-
-                <canvas id="semesterChart"></canvas>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Student Form -->
-    <div class="card shadow p-4 mb-4">
-
-        <h3 class="text-center mb-3">
-
-            Add / Update Student
-
+        <h3 class="text-center mb-4">
+            <i class="bi bi-mortarboard-fill"></i> SMS
         </h3>
 
-        <form id="studentForm">
+        <hr>
 
-            <input
-                type="text"
-                id="name"
-                class="form-control mb-3"
-                placeholder="Student Name"
-                required>
+        <ul class="nav flex-column">
 
-            <input
-                type="text"
-                id="usn"
-                class="form-control mb-3"
-                placeholder="USN"
-                required>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white" href="index.html">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+            </li>
 
-            <input
-                type="text"
-                id="department"
-                class="form-control mb-3"
-                placeholder="Department"
-                required>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-people-fill"></i> Students
+                </a>
+            </li>
 
-            <input
-                type="number"
-                id="semester"
-                class="form-control mb-3"
-                placeholder="Semester"
-                required>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white" href="attendance.html">
+                    <i class="bi bi-calendar-check-fill"></i> Attendance
+                </a>
+            </li>
 
-            <button
-                type="submit"
-                class="btn btn-success w-100">
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-bar-chart-fill"></i> Reports
+                </a>
+            </li>
 
-                Save Student
+            <li class="nav-item mb-2">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-gear-fill"></i> Settings
+                </a>
+            </li>
 
-            </button>
+            <li class="nav-item mt-4">
+                <button class="btn btn-danger w-100" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </li>
 
-        </form>
+        </ul>
 
     </div>
 
-    <!-- Student List -->
-    <div class="card shadow p-4">
+    <!-- Main Content -->
+    <div class="container-fluid p-4">
 
-        <h3 class="text-center mb-3">
+        <!-- Top Navbar -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-            Student List
+            <div>
 
-        </h3>
+                <h2 class="fw-bold">
+                    <i class="bi bi-speedometer2"></i>
+                    Dashboard
+                </h2>
 
-        <input
-            type="text"
-            id="search"
-            class="form-control mb-3"
-            placeholder="Search by Name or USN"
-            onkeyup="searchStudent()">
+                <small class="text-muted">
+                    Welcome back, Admin 👋
+                </small>
 
-        <table class="table table-bordered table-hover table-striped">
+            </div>
 
-            <thead class="table-dark">
+            <div>
 
-                <tr>
+                <button class="btn btn-success me-2" onclick="exportPDF()">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                    Export PDF
+                </button>
 
-                    <th>Name</th>
-                    <th>USN</th>
-                    <th>Department</th>
-                    <th>Semester</th>
-                    <th>Action</th>
+            </div>
 
-                </tr>
+        </div>
 
-            </thead>
+        <!-- Dashboard Cards -->
 
-            <tbody id="studentTable">
+        <div class="row g-4 mb-4">
 
-            </tbody>
+            <div class="col-md-4">
 
-        </table>
+                <div class="card bg-primary text-white border-0 shadow-lg rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            <i class="bi bi-people-fill"></i>
+                            Total Students
+                        </h5>
+
+                        <h2 id="totalStudents">0</h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card bg-success text-white border-0 shadow-lg rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            <i class="bi bi-building"></i>
+                            Departments
+                        </h5>
+
+                        <h2 id="totalDepartments">0</h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card bg-warning border-0 shadow-lg rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <h5>
+                            <i class="bi bi-bar-chart-fill"></i>
+                            Average Semester
+                        </h5>
+
+                        <h2 id="averageSemester">0</h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Charts -->
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-lg rounded-4 p-4">
+
+                    <h5 class="text-center">
+                        Students by Department
+                    </h5>
+
+                    <canvas id="departmentChart"></canvas>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-lg rounded-4 p-4">
+
+                    <h5 class="text-center">
+                        Students by Semester
+                    </h5>
+
+                    <canvas id="semesterChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Student Form -->
+
+        <div class="card border-0 shadow-lg rounded-4 p-4 mb-4">
+
+            <h3 class="text-center mb-3">
+                Add / Update Student
+            </h3>
+
+            <form id="studentForm">
+
+                <input
+                    type="text"
+                    id="name"
+                    class="form-control mb-3"
+                    placeholder="Student Name"
+                    required>
+
+                <input
+                    type="text"
+                    id="usn"
+                    class="form-control mb-3"
+                    placeholder="USN"
+                    required>
+
+                <input
+                    type="text"
+                    id="department"
+                    class="form-control mb-3"
+                    placeholder="Department"
+                    required>
+
+                <input
+                    type="number"
+                    id="semester"
+                    class="form-control mb-3"
+                    placeholder="Semester"
+                    required>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100">
+
+                    <i class="bi bi-save"></i>
+                    Save Student
+
+                </button>
+
+            </form>
+
+        </div>
+                <!-- Student List -->
+
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h3>
+                    <i class="bi bi-person-lines-fill"></i>
+                    Student List
+                </h3>
+
+                <input
+                    type="text"
+                    id="search"
+                    class="form-control w-25"
+                    placeholder="🔍 Search Student..."
+                    onkeyup="searchStudent()">
+
+            </div>
+
+            <table class="table table-hover table-striped align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>USN</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
@@ -244,4 +309,3 @@
 </body>
 
 </html>
-

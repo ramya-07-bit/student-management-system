@@ -76,13 +76,22 @@ async function loadStudents() {
     students.forEach(student => {
 
         table.innerHTML += `
-        <tr>
-            <td>${student.name}</td>
-            <td>${student.usn}</td>
-            <td>${student.department}</td>
-            <td>${student.semester}</td>
+<tr>
 
-            <td>
+    <td>
+        <img src="images/default.png"
+             alt="Student"
+             width="45"
+             height="45"
+             style="border-radius:50%; object-fit:cover;">
+    </td>
+
+    <td>${student.name}</td>
+    <td>${student.usn}</td>
+    <td>${student.department}</td>
+    <td>${student.semester}</td>
+
+    <td>
 
                 <button
                     class="btn btn-info btn-sm"
